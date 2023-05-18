@@ -61,6 +61,12 @@ class _HeatMapCalendarExample extends State<HeatMapCalendarExample> {
                 child: HeatMapCalendar(
                   flexible: true,
                   datasets: heatMapDatasets,
+                  defaultColor: Colors.transparent,
+                  borderRadius: 40,
+                  titleStyle: TextStyle(
+                    fontSize: 16,
+                    color: Colors.blue
+                  ),
                   colorMode:
                       isOpacityMode ? ColorMode.opacity : ColorMode.color,
                   colorsets: const {

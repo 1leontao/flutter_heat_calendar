@@ -33,28 +33,32 @@ class HeatMapContainer extends StatelessWidget {
       padding: margin ?? const EdgeInsets.all(2),
       child: GestureDetector(
         child: Container(
+          width: size,
+          height: size,
           decoration: BoxDecoration(
             color: backgroundColor ?? HeatMapColor.defaultColor,
             borderRadius: BorderRadius.all(Radius.circular(borderRadius ?? 5)),
           ),
-          child: AnimatedContainer(
-            duration: const Duration(milliseconds: 200),
-            curve: Curves.easeInOutQuad,
-            width: size,
-            height: size,
-            alignment: Alignment.center,
-            child: (showText ?? true)
-                ? Text(
-                    date.day.toString(),
-                    style: TextStyle(
-                        color: textColor ?? const Color(0xFF8A8A8A),
-                        fontSize: fontSize),
-                  )
-                : null,
-            decoration: BoxDecoration(
-              color: selectedColor,
-              borderRadius:
-                  BorderRadius.all(Radius.circular(borderRadius ?? 5)),
+          child: UnconstrainedBox(
+            child: Container(
+              // duration: const Duration(milliseconds: 200),
+              // curve: Curves.easeInOutQuad,
+              width: 30,
+              height: 30,
+              alignment: Alignment.center,
+              child: (showText ?? true)
+                  ? Text(
+                date.day.toString(),
+                style: TextStyle(
+                    color: selectedColor != null ? Colors.white : (textColor ?? const Color(0xFF8A8A8A)),
+                    fontSize: fontSize),
+              )
+                  : null,
+              decoration: BoxDecoration(
+                color: selectedColor,
+                borderRadius:
+                BorderRadius.all(Radius.circular(borderRadius ?? 5)),
+              ),
             ),
           ),
         ),

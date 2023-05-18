@@ -30,6 +30,8 @@ class HeatMapCalendar extends StatefulWidget {
   /// The text color value of every blocks.
   final Color? textColor;
 
+  final TextStyle? titleStyle;
+
   /// The double value of every block's fontSize.
   final double? fontSize;
 
@@ -98,6 +100,7 @@ class HeatMapCalendar extends StatefulWidget {
     this.fontSize,
     this.monthFontSize,
     this.textColor,
+    this.titleStyle,
     this.weekFontSize,
     this.weekTextColor,
     this.borderRadius,
@@ -131,11 +134,15 @@ class _HeatMapCalendar extends State<HeatMapCalendar> {
   }
 
   void changeMonth(int direction) {
-    setState(() {
-      _currentDate =
-          DateUtil.changeMonth(_currentDate ?? DateTime.now(), direction);
-    });
-    if (widget.onMonthChange != null) widget.onMonthChange!(_currentDate!);
+    final tmpDate =
+        DateUtil.changeMonth(_currentDate ?? DateTime.now(), direction);
+
+    if(tmpDate.month <= DateTime.now().month) {
+      setState(() {
+        _currentDate = tmpDate;
+      });
+      if (widget.onMonthChange != null) widget.onMonthChange!(_currentDate!);
+    }
   }
 
   /// Header widget which shows left, right buttons and year/month text.
@@ -154,10 +161,10 @@ class _HeatMapCalendar extends State<HeatMapCalendar> {
 
         // Text which shows the current year and month
         Text(
-          DateUtil.MONTH_LABEL[_currentDate?.month ?? 0] +
-              ' ' +
-              (_currentDate?.year).toString(),
-          style: TextStyle(
+          (_currentDate?.year).toString() +
+              '-' +
+              (_currentDate?.month).toString(),
+          style: widget.titleStyle ?? TextStyle(
             fontSize: widget.monthFontSize ?? 12,
           ),
         ),
