@@ -137,7 +137,7 @@ class _HeatMapCalendar extends State<HeatMapCalendar> {
     final tmpDate =
         DateUtil.changeMonth(_currentDate ?? DateTime.now(), direction);
 
-    if(tmpDate.month <= DateTime.now().month) {
+    if(tmpDate.month <= DateTime.now().month || tmpDate.year < DateTime.now().year) {
       setState(() {
         _currentDate = tmpDate;
       });
